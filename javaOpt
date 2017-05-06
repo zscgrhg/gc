@@ -1,0 +1,30 @@
+-verbose:gc
+-Xloggc:gc.log
+-XX:+PrintGCApplicationStoppedTime
+-XX:+PrintGCApplicationConcurrentTime
+-XX:+PrintGCDateStamps
+-XX:+UseCompressedOops
+-XX:ThreadStackSize=512
+
+jinfo -flag ThreadStackSize <pid>
+
+
+
+-XX:+PrintSafepointStatistics
+-XX:PrintSafepointStatisticsCount=1
+
+
+-XX:+UnlockDiagnosticVMOptions
+-XX:+LogVMOutput -XX:LogFile=vm.log
+-XX:-UseBiasedLocking
+
+
+-server -Xmx3g -Xms3g -XX:MaxPermSize=128m
+-XX:NewRatio=1  eden/old 的比例
+-XX:SurvivorRatio=8  s/e的比例
+-XX:+UseParallelGC
+-XX:ParallelGCThreads=8
+-XX:+UseParallelOldGC  这个是JAVA 6出现的参数选项
+-XX:LargePageSizeInBytes=128m 内存页的大小， 不可设置过大， 会影响Perm的大小。
+-XX:+UseFastAccessorMethods 原始类型的快速优化
+-XX:+DisableExplicitGC  关闭System.gc()
