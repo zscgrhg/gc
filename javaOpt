@@ -8,6 +8,8 @@
 -Xmx8g
 -XX:+UseAdaptiveSizePolicy
 -XX:+UseParallelOldGC
+-XX:PermSize=128m
+-XX:MaxPermSize=128m
 
 
 -XX:+UseLargePages
