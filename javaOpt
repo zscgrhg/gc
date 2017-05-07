@@ -1,13 +1,73 @@
 -verbose:gc
 -Xloggc:gc.log
+-XX:+PrintGCDateStamps
+-XX:+UseCompressedOops
+-XX:+UseCompressedClassPointers
+-XX:ThreadStackSize=512
+-Xms8g
+-Xmx8g
+-XX:+UseAdaptiveSizePolicy
+-XX:+UseParallelOldGC
+
+
+-XX:+UseLargePages
+-XX:LargePageSizeInBytes=2m
+
+echo 4294967296 > /proc/sys/kernel/shmmax
+echo 2048 > /proc/sys/vm/nr_hugepages
+
+-verbose:gc
+-Xloggc:gc.log
+-XX:+PrintGCDateStamps
+-XX:+UseCompressedOops
+-XX:ThreadStackSize=512
+-Xms4g
+-Xmx4g
+-XX:-UseAdaptiveSizePolicy
+-XX:+PrintAdaptiveSizePolicy
+-XX:+UseParallelOldGC
+
+-verbose:gc
+-Xloggc:gc.log
+-XX:+PrintGCApplicationStoppedTime
+-XX:+PrintGCApplicationConcurrentTime
+-XX:+PrintGCDateStamps
+-XX:ThreadStackSize=512
+-Xms4g -Xmx4g
+-XX:+UseG1GC
+-XX:MaxGCPauseMillis=200
+-XX:+PrintAdaptiveSizePolicy
+-XX:ConcGCThreads=16
+-XX:ParallelGCThreads=16
+
+
+-verbose:gc
+-Xloggc:gc.log
 -XX:+PrintGCApplicationStoppedTime
 -XX:+PrintGCApplicationConcurrentTime
 -XX:+PrintGCDateStamps
 -XX:+UseCompressedOops
 -XX:ThreadStackSize=512
+-Xmn1g
+-Xms4g
+-Xmx4g
+-XX:-UseAdaptiveSizePolicy
+-XX:+PrintAdaptiveSizePolicy
+
 
 jinfo -flag ThreadStackSize <pid>
 
+
+-XX:+UseG1GC
+-XX:ConcGCThreads=8
+-XX:ParallelGCThreads=8
+-XX:MaxGCPauseMillis=200
+
+
+
+
+-XX:LargePageSizeInBytes=128m
+-XX:+UseLargePages
 
 
 -XX:+PrintSafepointStatistics
