@@ -223,12 +223,12 @@ public class GC {
         final Set<String> set = Collections.synchronizedSet(new HashSet<String>());
         long start = System.currentTimeMillis();
         ExecutorService executorService = Executors.newFixedThreadPool(ts);
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < 1000; i++) {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     Thread.currentThread().setName("synchronizedSet");
-                    for (int k = 0; k < 1000; k++) {
+                    for (int k = 0; k < 100; k++) {
                         set.add(Thread.currentThread().getName()
                                 + "[" + k + "]" + "{" + json+ "}");
                     }
@@ -241,37 +241,18 @@ public class GC {
     }
 
 
-    public static void test(int ts) throws InterruptedException {
-        final Set<String> set = new HashSet<String>();//Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
-        long start = System.currentTimeMillis();
-        ExecutorService executorService = Executors.newFixedThreadPool(ts);
-        for (int i = 0; i < 1000000; i++) {
-            executorService.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Thread.currentThread().setName("ConcurrentHashMap");
-                    for (int k = 0; k < 1000; k++) {
-                        set.add(Thread.currentThread().getName()
-                                + "[" + k + "]" + "{" + json+ "}");
-                    }
-                }
-            });
-        }
-        executorService.shutdown();
-        executorService.awaitTermination(100, TimeUnit.MINUTES);
-        System.out.println(System.currentTimeMillis()-start);
-    }
+
 
     public static void test3(int ts) throws InterruptedException {
         final Set<String> set = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
         long start = System.currentTimeMillis();
         ExecutorService executorService = Executors.newFixedThreadPool(ts);
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < 1000; i++) {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     Thread.currentThread().setName("ConcurrentHashMap");
-                    for (int k = 0; k < 1000; k++) {
+                    for (int k = 0; k < 100; k++) {
                         set.add(Thread.currentThread().getName()
                                 + "[" + k + "]" + "{" + json+ "}");
                     }
@@ -284,20 +265,15 @@ public class GC {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        int ts=8;
         for (int i = 0; i < 10; i++) {
-            test(64);
+            test2(ts);
 
         }
-        Thread.sleep(10000);
+        Thread.sleep(1000);
         System.out.println("-----");
         for (int i = 0; i < 10; i++) {
-            test2(64);
-
-        }
-        Thread.sleep(10000);
-        System.out.println("-----");
-        for (int i = 0; i < 10; i++) {
-            test3(64);
+            test3(ts);
 
         }
         System.out.println("-----");
